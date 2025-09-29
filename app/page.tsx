@@ -1,142 +1,127 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import frontCard from "../public/back3.png";
+import headerCard from "../public/front3.png";
 import Image from "next/image";
-import Folder from "@/components/Folder";
 import { FireworksBackground } from "@/components/FireWorks";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const [imageOneLoaded, setImageOneLoaded] = useState(false);
+  const [imageTwoLoaded, setImageTwoLoaded] = useState(false);
+
+  const flapRef = useRef<HTMLImageElement>(null);
+
+  const isLoadComplete = imageOneLoaded && imageTwoLoaded;
+
+  const [moveCard, setMoveCard] = useState(false);
+
+  useEffect(() => {
+    if (flapRef.current && open) {
+      gsap.fromTo(
+        flapRef.current,
+        { rotateX: 0 },
+        {
+          rotateX: -150,
+          duration: 0.8,
+          ease: "power2.inOut",
+          transformOrigin: "top center",
+        },
+      );
+
+      const id = setTimeout(() => {
+        setMoveCard(true);
+      }, 800);
+
+      return () => clearTimeout(id);
+    }
+  }, [open]);
+
+  const gender = "M" as "M" | "W";
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <div style={{ height: "600px", position: "relative" }}>
-          <Folder
-            onClick={() => setOpen(!open)}
-            items={
-              [
-                `
-👦
-아들이에요!
-멋진 왕자님을
-만나게 되실 거예요 💙
-            `,
-                `
-👧
-딸이에요!
-사랑스러운 공주님을
-만나게 되실 거예요 💕
-`,
-              ] as any
-            }
-            color="#5227FF"
-            className="custom-folder"
-          />
-          {open && (
-            <FireworksBackground
-              className="absolute inset-0 -top-60 z-0 flex items-center justify-center rounded-xl"
-              fireworkSpeed={{ min: 8, max: 16 }}
-              fireworkSize={{ min: 4, max: 10 }}
-              particleSpeed={{ min: 4, max: 14 }}
-              particleSize={{ min: 2, max: 10 }}
-            />
+    <div className="relative max-w-4xl h-dvh m-auto flex flex-col justify-center">
+      <div
+        className={cn(
+          "fixed w-[350px] h-[230px] -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2",
+          moveCard && "-translate-y-1/5 duration-800",
+        )}
+      >
+        <h1 className="-top-15 absolute -translate-x-1/2 left-1/2 text-center text-2xl font-bold">
+          몰리의 성별은?
+        </h1>
+
+        <div className="size-full bg-[#587389]" />
+
+        <div
+          className={cn(
+            "absolute bg-white w-3/4 h-4/5 rounded-2xl -translate-x-1/2 left-1/2 -translate-y-1/2 -bottom-18 z-20 transition flex flex-col items-center justify-center gap-3 shadow",
+            !isLoadComplete && "hidden",
+            moveCard && "-translate-y-65 duration-800",
+            gender === "W" ? "bg-pink-200" : "bg-blue-200",
+          )}
+        >
+          {gender === "W" ? (
+            <>
+              <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
+                👧
+              </h1>
+              <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+                딸이에요!
+              </h3>
+              <p className="">
+                사랑스러운 공주님을 <br /> 만나게 되실 거예요 💕
+              </p>
+            </>
+          ) : (
+            <>
+              <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
+                👦
+              </h1>
+              <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+                아들이에요!
+              </h3>
+              <p className="leading-7">멋진 왕자님을 만나게 되실 거예요 💙</p>
+            </>
           )}
         </div>
+
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
+          className="absolute z-30 top-0 shadow-2xl"
+          src={frontCard}
+          alt="card"
+          width={350}
+          height={260}
+          priority
+          onLoadingComplete={() => setImageOneLoaded(true)}
+        />
+
+        <Image
+          onClick={() => !open && setOpen(!open)}
+          className={cn(
+            "absolute z-40 top-0",
+            moveCard && "z-10",
+            !open && "cursor-pointer",
+          )}
+          ref={flapRef}
+          src={headerCard}
+          alt="Card"
+          width={530}
+          height={186}
+          onLoadingComplete={() => setImageTwoLoaded(true)}
           priority
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      {moveCard && (
+        <FireworksBackground
+          className="absolute inset-0 flex items-center justify-center rounded-xl"
+          population={3}
+        />
+      )}
     </div>
   );
 }

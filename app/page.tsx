@@ -50,7 +50,7 @@ export default function Home() {
           moveCard && "-translate-y-1/5 duration-800",
         )}
       >
-        <h1 className="-top-15 absolute -translate-x-1/2 left-1/2 text-center text-2xl font-bold">
+        <h1 className="-top-15 absolute -translate-x-1/2 left-1/2 text-center text-[20px] font-bold">
           몰리의 성별은?
         </h1>
 
@@ -58,7 +58,7 @@ export default function Home() {
 
         <div
           className={cn(
-            "absolute bg-white w-3/4 h-4/5 rounded-2xl -translate-x-1/2 left-1/2 -translate-y-1/2 -bottom-18 z-20 transition flex flex-col items-center justify-center gap-3 shadow",
+            "absolute bg-white w-3/4 h-6/7 rounded-2xl -translate-x-1/2 left-1/2 -translate-y-1/2 -bottom-18 z-20 transition flex flex-col items-center justify-center gap-[3px] shadow p-[3px] text-center",
             !isLoadComplete && "hidden",
             moveCard && "-translate-y-65 duration-800",
             gender === "W" ? "bg-pink-200" : "bg-blue-200",
@@ -66,25 +66,19 @@ export default function Home() {
         >
           {gender === "W" ? (
             <>
-              <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
-                👧
-              </h1>
-              <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-                딸이에요!
-              </h3>
-              <p className="">
-                사랑스러운 공주님을 <br /> 만나게 되실 거예요 💕
+              <h1 className="text-[46px]">👧</h1>
+              <h3 className="text-[20px] font-semibold">딸이에요!</h3>
+              <p className="text-balance break-words break-keep text-[18px]">
+                사랑스러운 공주님을 만나게 되실 거예요 💕
               </p>
             </>
           ) : (
             <>
-              <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
-                👦
-              </h1>
-              <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-                아들이에요!
-              </h3>
-              <p className="leading-7">멋진 왕자님을 만나게 되실 거예요 💙</p>
+              <h1 className="text-[46px]">👦</h1>
+              <h3 className="text-[20px] font-semibold">아들이에요!</h3>
+              <p className="text-balance break-words break-keep text-[18px]">
+                멋진 왕자님을 만나게 되실 거예요 💙
+              </p>
             </>
           )}
         </div>

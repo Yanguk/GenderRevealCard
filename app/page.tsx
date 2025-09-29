@@ -46,7 +46,7 @@ export default function Home() {
     <div className="relative max-w-4xl h-dvh m-auto flex flex-col justify-center">
       <div
         className={cn(
-          "fixed w-[350px] h-[230px] -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2",
+          "fixed w-[320px] h-[210px] -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2",
           moveCard && "-translate-y-1/5 duration-800",
         )}
       >
@@ -93,10 +93,10 @@ export default function Home() {
           className="absolute z-30 top-0 shadow-2xl"
           src={frontCard}
           alt="card"
-          width={350}
-          height={260}
+          width={320}
+          height={210}
           priority
-          onLoadingComplete={() => setImageOneLoaded(true)}
+          onLoad={() => setImageOneLoaded(true)}
         />
 
         <Image
@@ -109,9 +109,9 @@ export default function Home() {
           ref={flapRef}
           src={headerCard}
           alt="Card"
-          width={530}
+          width={320}
           height={186}
-          onLoadingComplete={() => setImageTwoLoaded(true)}
+          onLoad={() => setImageTwoLoaded(true)}
           priority
         />
       </div>

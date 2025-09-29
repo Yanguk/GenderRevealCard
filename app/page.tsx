@@ -1,9 +1,48 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
 import Image from "next/image";
+import Folder from "@/components/Folder";
+import { FireworksBackground } from "@/components/FireWorks";
+import { useState } from "react";
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+        <div style={{ height: "600px", position: "relative" }}>
+          <Folder
+            onClick={() => setOpen(!open)}
+            items={
+              [
+                `
+👦
+아들이에요!
+멋진 왕자님을
+만나게 되실 거예요 💙
+            `,
+                `
+👧
+딸이에요!
+사랑스러운 공주님을
+만나게 되실 거예요 💕
+`,
+              ] as any
+            }
+            color="#5227FF"
+            className="custom-folder"
+          />
+          {open && (
+            <FireworksBackground
+              className="absolute inset-0 -top-60 z-0 flex items-center justify-center rounded-xl"
+              fireworkSpeed={{ min: 8, max: 16 }}
+              fireworkSize={{ min: 4, max: 10 }}
+              particleSpeed={{ min: 4, max: 14 }}
+              particleSize={{ min: 2, max: 10 }}
+            />
+          )}
+        </div>
         <Image
           className="dark:invert"
           src="/next.svg"

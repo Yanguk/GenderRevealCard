@@ -79,7 +79,7 @@ export default function Home() {
         >
           {gender === "W" ? (
             <>
-              <h1 className="text-[46px]">👧</h1>
+              <h1 className="text-[46px]">👧🏻</h1>
               <h3 className="text-[20px] font-semibold">딸이에요!</h3>
               <p className="text-balance break-words break-keep text-[18px]">
                 사랑스러운 공주님을 <br /> 만나게 되실 거예요 💕
@@ -87,7 +87,7 @@ export default function Home() {
             </>
           ) : (
             <>
-              <h1 className="text-[46px]">👦</h1>
+              <h1 className="text-[46px]">👦🏻</h1>
               <h3 className="text-[20px] font-semibold">아들이에요!</h3>
               <p className="text-balance break-words break-keep text-[18px]">
                 멋진 왕자님을 <br /> 만나게 되실 거예요 💙
@@ -120,7 +120,7 @@ export default function Home() {
           height={186}
           style={{
             height: "auto",
-            width: "auto",
+            width: 'auto'
           }}
           onLoad={() => setImageTwoLoaded(true)}
           priority

@@ -50,7 +50,7 @@ export default function Home() {
     <div className="relative max-w-4xl h-dvh m-auto flex flex-col justify-center">
       <div
         className={cn(
-          "fixed w-[320px] h-[210px] -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2",
+          "fixed w-[320px] h-[210px] -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 shadow-xl",
           moveCard && "-translate-y-1/5 duration-800",
         )}
       >
@@ -66,8 +66,6 @@ export default function Home() {
           height={210}
           priority
         />
-
-        <div className="size-full bg-[#587389]" />
 
         <div
           className={cn(
@@ -97,7 +95,7 @@ export default function Home() {
         </div>
 
         <Image
-          className="absolute z-30 top-0 shadow-2xl"
+          className="absolute z-30 top-0"
           src={frontCard}
           alt="card"
           width={320}
@@ -117,11 +115,7 @@ export default function Home() {
           src={headerCard}
           alt="Card"
           width={320}
-          height={186}
-          style={{
-            height: "auto",
-            width: 'auto'
-          }}
+          height={122}
           onLoad={() => setImageTwoLoaded(true)}
           priority
         />
